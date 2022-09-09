@@ -13,8 +13,10 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 router.put('/:id', (req, res) => {
-  const name = req.body.name
-  Todo.update({ name }, {
+  const { name, isDone } = req.body
+  const isDoneBoolean = isDone === 'on' ? true : false
+
+  Todo.update({ name, isDone: isDoneBoolean }, {
     where: {
       id: req.params.id
     }
