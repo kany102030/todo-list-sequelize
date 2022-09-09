@@ -3,9 +3,24 @@ const router = express.Router()
 const db = require('../../models')
 const Todo = db.Todo
 
+router.get('/:id/edit', (req, res) => {
+  Todo.findByPk(req.params.id)
+    .then(todo => res.render('edit', { todo: todo.toJSON() }))
+    .catch(error => console.log(error))
+})
 
 router.get('/new', (req, res) => {
   return res.render('new')
+})
+router.put('/:id', (req, res) => {
+  const name = req.body.name
+  Todo.update({ name }, {
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 router.delete('/:id', (req, res) => {
   Todo.destroy({
