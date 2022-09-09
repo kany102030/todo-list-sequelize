@@ -4,6 +4,7 @@ const db = require('../../models')
 const User = db.User
 const Todo = db.Todo
 router.get('/', (req, res) => {
+  console.log('home')
   return Todo.findAll({
     raw: true,
     nest: true
