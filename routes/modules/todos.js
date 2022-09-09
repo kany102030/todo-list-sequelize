@@ -7,6 +7,16 @@ const Todo = db.Todo
 router.get('/new', (req, res) => {
   return res.render('new')
 })
+router.delete('/:id', (req, res) => {
+  Todo.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+
+})
 router.get('/:id', (req, res) => {
   const id = req.params.id
   return Todo.findByPk(id)
